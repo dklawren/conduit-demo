@@ -5,7 +5,13 @@
 version: '2'
 services:
   bmo.dev:
-    image: mozillaconduit/docker-bmo
+    build:
+      context: ./docker/bmo
+      dockerfile: ./Dockerfile
+    volumes:
+      - bmo-mysql-db:/var/lib/mysql
+      - /home/dkl/devel:/home/bugzilla/devel
+      - /home/dkl/.bz-dev.conf:/etc/bz-dev.conf:ro
 
   demo:
     build:
@@ -31,9 +37,11 @@ services:
       - PHABRICATOR_CDN_URI=http://phabricator.dev/
     depends_on:
       - phabdb
-      - phabext
-    volumes_from:
-      - phabext
+    #  - phabext
+    #volumes_from:
+    #   - phabext
+    volumes:
+      - /home/dkl/devel/repos/github/dklawren/conduit/phabricator-extensions:/app/phabricator/src/extensions
 
   phabricator.dev:
     image: nginx:alpine
@@ -60,4 +68,5 @@ services:
       - "1080:1080"
 
 volumes:
+  bmo-mysql-db:
   phabricator-mysql-db:
