@@ -18,8 +18,9 @@ services:
       context: docker/vct-hg
       dockerfile: ./Dockerfile
     volumes:
-      - .:/root/repo:ro
+      - .:/home/phab/repo:ro
     depends_on:
+      - tinyproxy
       - phabricator.dev
       - bmo.dev
 
@@ -35,6 +36,7 @@ services:
       - MYSQL_PASS=password
       - PHABRICATOR_URI=http://phabricator.dev/
       - PHABRICATOR_CDN_URI=http://phabricator.dev/
+    restart: on-failure
     depends_on:
       - phabdb
     #  - phabext
@@ -51,12 +53,14 @@ services:
       - phabricator
     depends_on:
       - phabricator
+      - tinyproxy
 
   phabdb:
     image: mysql:5.5
     volumes:
       - phabricator-mysql-db:/var/lib/mysql
       - ./docker/phabricator/mysql:/etc/mysql/conf.d:ro
+      - ./docker/phabricator/demo.sql.gz:/docker-entrypoint-initdb.d/demo.sql.gz
     environment:
       - MYSQL_ROOT_PASSWORD=password
 
