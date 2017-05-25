@@ -13,7 +13,6 @@ $CPANM Email::Sender;
 $CPANM File::Slurp
 $CPANM HTML::FormatText::WithLinks
 $CPANM IPC::System::Simple
-$CPANM JSON::RPC::Client
 $CPANM Net::RabbitMQ
 $CPANM Net::SMTP::SSL
 $CPANM REST::Client
