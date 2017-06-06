@@ -36,8 +36,6 @@ services:
     restart: on-failure
     depends_on:
       - phabdb
-    volumes:
-      - /home/dkl/devel/repos/github/dklawren/conduit/phabricator-extensions:/app/phabricator/src/extensions
 
   phabricator.test:
     image: nginx:alpine
