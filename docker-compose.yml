@@ -12,6 +12,7 @@ services:
       - bmo-mysql-db:/var/lib/mysql
       - /home/dkl/devel:/home/bugzilla/devel
       - /home/dkl/.bz-dev.conf:/etc/bz-dev.conf:ro
+      - ./docker/bmo/conf/bugzilla.conf:/etc/httpd/conf.d/bugzilla.conf:ro
 
   demo:
     build:
