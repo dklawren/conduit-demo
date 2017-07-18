@@ -22,7 +22,7 @@ RUN chmod 755 /usr/local/bin/*
 COPY conf/bugzilla.conf /etc/httpd/conf.d/bugzilla.conf
 
 # Development environment setup
-RUN git clone $GITHUB_BASE_GIT -b $GITHUB_BASE_BRANCH $BUGZILLA_ROOT \
+RUN git clone $GITHUB_BASE_GIT -b $GITHUB_BASE_BRANCH --depth 1 $BUGZILLA_ROOT \
     && ln -sf $BUGZILLA_LIB $BUGZILLA_ROOT/local
 COPY conf/checksetup_answers.txt $BUGZILLA_ROOT/checksetup_answers.txt
 RUN bugzilla_config.sh

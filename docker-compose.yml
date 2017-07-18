@@ -10,8 +10,10 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - bmo-mysql-db:/var/lib/mysql
-      - /home/dkl/devel:/home/bugzilla/devel
-      - /home/dkl/.bz-dev.conf:/etc/bz-dev.conf:ro
+      - ${HOME}/devel:/home/bugzilla/devel
+      - ${HOME}/.bz-dev.conf:/etc/bz-dev.conf:ro
+      - ${HOME}/.netrc:/home/bugzilla/.netrc:ro
+      - ${HOME}/.ssh:/home/bugzilla/.ssh:ro
       - ./docker/bmo/conf/bugzilla.conf:/etc/httpd/conf.d/bugzilla.conf:ro
 
   demo:
@@ -65,5 +67,4 @@ services:
       - "1080:1080"
 
 volumes:
-  bmo-mysql-db:
   phabricator-mysql-db:
